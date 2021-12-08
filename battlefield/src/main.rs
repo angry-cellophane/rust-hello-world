@@ -1,8 +1,14 @@
-fn main() {
-    let (x,y,z) = create_tuple();
-    println!("{} {} {}", x, y, z);
-}
+use std::io::stdin;
 
-fn create_tuple() -> (i32, f64, u8) {
-    return (500, 6.4, 1);
+fn main() {
+    let a = [1, 2, 3];
+
+    let mut index = String::new();
+    stdin().read_line(&mut index)
+        .expect("Failed to read line");
+    let index: usize = index.trim().parse()
+        .expect("not a number");
+
+    let element = a[index];
+    println!("{}", element);
 }
