@@ -1,14 +1,33 @@
-use std::io::stdin;
-
 fn main() {
-    let a = [1, 2, 3];
+    let s = String::from("Hello salut hola");
+    let word = find_word(&s, 3);
 
-    let mut index = String::new();
-    stdin().read_line(&mut index)
-        .expect("Failed to read line");
-    let index: usize = index.trim().parse()
-        .expect("not a number");
+    println!("{}", word);
+}
 
-    let element = a[index];
-    println!("{}", element);
+fn find_word(s: &str, word_number: usize) -> &str {
+    let bytes = s.as_bytes();
+    let mut wn = 0;
+
+    let mut start = 0;
+    let mut start_defined = false;
+    let mut end = 0;
+
+    while end < bytes.len() {
+        if !start_defined && bytes[end] != b' ' {
+            start = end;
+            start_defined = true;
+        }
+        if bytes[end] == b' ' {
+            if wn < word_number {
+                wn += 1;
+                start_defined = false;
+            } else {
+                break;
+            }
+        }
+        end += 1;
+    }
+
+    return &s[start..end];
 }
