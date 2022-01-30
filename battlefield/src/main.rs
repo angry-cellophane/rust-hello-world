@@ -8,13 +8,31 @@ impl Rectangle {
     fn area(&self) -> u32 {
         return self.width * self.height;
     }
+
+    fn can_hold(&self, another: &Rectangle) -> bool {
+        return self.width >= another.width && self.height >= another.height;
+    }
+}
+
+impl Rectangle {
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
 }
 
 
 fn main() {
-    let rect = Rectangle {
+    let rect1 = Rectangle {
         width: 30,
         height: 50,
     };
-    println!("square = {:?}", rect.area());
+    let rect2 = Rectangle {
+        width: 10,
+        height: 30,
+    };
+
+    println!("can hold = {:?}", rect1.can_hold(&rect2));
 }
