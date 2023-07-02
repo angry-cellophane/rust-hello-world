@@ -1,38 +1,35 @@
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-
-impl Rectangle {
-    fn area(&self) -> u32 {
-        return self.width * self.height;
-    }
-
-    fn can_hold(&self, another: &Rectangle) -> bool {
-        return self.width >= another.width && self.height >= another.height;
-    }
-}
-
-impl Rectangle {
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
-            width: size,
-            height: size,
-        }
-    }
-}
-
+use std::io;
+use rand::Rng;
+use std::cmp::Ordering;
 
 fn main() {
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
-    let rect2 = Rectangle {
-        width: 10,
-        height: 30,
-    };
+    println!("Guessing game");
+    let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    println!("can hold = {:?}", rect1.can_hold(&rect2));
+    loop {
+        println!("Input you guess");
+        let mut guess = String::new();
+        io::stdin().read_line(&mut guess)
+            .expect("Failed");
+
+        if guess.trim().eq("quit") {
+            println!("Bye!");
+            break;
+        }
+
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
+        println!("You guessed {guess}");
+
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small"),
+            Ordering::Greater => println!("Too big"),
+            Ordering::Equal => {
+                println!("You win");
+                break;
+            },
+        }
+    }
 }
