@@ -5,19 +5,17 @@ struct Item {
     value: String,
 }
 
-fn main() {
+fn calculate_uniq_words(s: &str) -> usize {
     let mut m = HashMap::new();
-    let i1 = Item {
-        value: String::from("1"),
-    };
-    let i2 = Item {
-        value: String::from("2"),
-    };
-    m.insert(String::from("1"), &i1);
-    m.insert(String::from("2"), &i2);
-    let e = m.entry(String::from("3")).or_insert(&i1);
+    for w in s.split_whitespace() {
+        let count = m.entry(w).or_insert(0);
+        *count += 1;
+    }
+    m.len()
+}
 
-    println!("{:?}", &i1);
-    println!("{:?}", &i2);
-    println!("{:?}", m);
+fn main() {
+    let s = "hello world hello again no again";
+    let words = calculate_uniq_words(s);
+    println!("count = {}", words);
 }
