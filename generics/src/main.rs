@@ -21,6 +21,16 @@ fn max<T: std::cmp::PartialOrd>(list: &[T]) -> Option<&T> {
     Some(max)
 }
 
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]
+        }
+    }
+    &s[..]
+}
+
 fn main() {
     let v = vec![1,2,3,4,5];
     let max = max(&v);
@@ -33,4 +43,8 @@ fn main() {
         s3 = longest(s1.as_str(), s2.as_str());
         println!("longest string = {}", s3);
     }
+
+    let words = String::from("Hello world!");
+    let first_word = first_word(words.as_str());
+    println!("first word = {}", first_word);
 }
