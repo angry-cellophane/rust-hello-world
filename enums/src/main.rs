@@ -39,8 +39,6 @@ mod messages {
     }
 }
 
-
-
 fn main() {
     let home = ip::IpAddrKind::V4(127, 0, 0, 1);
     let loopback = ip::IpAddrKind::V6(String::from("::1"));
