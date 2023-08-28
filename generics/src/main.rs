@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 fn longest<'a>(s1: &'a str, s2: &'a str) -> &'a str {
     if s1.len() >= s2.len() {
         s1
@@ -31,6 +33,21 @@ fn first_word(s: &str) -> &str {
     &s[..]
 }
 
+fn longest_with_display<'a, T>(
+    s1: &'a str,
+    s2: &'a str,
+    ann: T
+) -> &'a str
+    where T: Display
+{
+    println!("Announcement {}!", ann);
+    if s1.len() >= s2.len() {
+        s1
+    } else {
+        s2
+    }
+}
+
 fn main() {
     let v = vec![1,2,3,4,5];
     let max = max(&v);
@@ -42,9 +59,12 @@ fn main() {
         let s2 = String::from("world!");
         s3 = longest(s1.as_str(), s2.as_str());
         println!("longest string = {}", s3);
+        let s3 = longest_with_display(s1.as_str(), s2.as_str(), "Yo");
+        println!("longest with display = {}", s3);
     }
 
     let words = String::from("Hello world!");
     let first_word = first_word(words.as_str());
     println!("first word = {}", first_word);
+
 }
